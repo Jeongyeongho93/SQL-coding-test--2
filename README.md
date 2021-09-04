@@ -83,4 +83,81 @@ WHERE name IS NULL
 
 
 
+Requirement meaning below
+Among the animals given protection by center, write sql statements that look up the animals has been came into the center with given name.
+
+-ORACLE
+SELECT animal_id FROM animal_ins
+WHERE name IS NOT NULL
+ORDER BY animal_id ASC
+
+-MYSQL
+SELECT animal_id FROM animal_ins
+WHERE name IS NOT NULL
+
+
+
+Requirement meaning below
+Post the animal info on adoption list. Write query to access animal species, name, sex and whether neutralizing in order to ID. You may consider that whom people does not know that the programming structure has null value, so that please mark up 'no name' which the animal has not been given name.
+
+-ORACLE
+1.
+SELECT ANIMAL_TYPE, CASE WHEN NAME IS NULL THEN 'No name' ELSE NAME END NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID ASC
+
+2.
+UPDATE ANIMAL_INS 
+SET NAME = 'No name' 
+WHERE NAME IS NULL
+SELECT ANIMAL_TYPE, NAME, SEX_UPON_INTAKE 
+FROM ANIMAL_INS
+ORDER BY NAME ASC
+
+3.
+SELECT ANIMAL_TYPE, NVL(NAME, 'No name'), SEX_UPON_INTAKE FROM ANIMAL_INS
+ORDER BY ANIMAL_ID ASC
+
+-MYSQL
+SELECT ANIMAL_TYPE, IFNULL(NAME, 'No name') as NAME, SEX_UPON_INTAKE 
+FROM ANIMAL_INS
+
+
+
+
+Requirement meaning below
+Due to unconsicous situation happened, so far some data has been missing currently. There was recorded an adoption process not only recorded come into animal shelter, please write query that access the animal id and name in order to id. Find the value that disappeared under other tables
+
+-ORACLE
+1.
+SELECT ANIMAL_ID, NAME FROM ANIMAL_INS
+UNION ALL
+SELECT ANIMAL_ID, NAME FROM ANIMAL_OUTS
+ORDER BY ANIMAL_ID ASC
+
+2.
+SELECT ANIMAL_OUTS.ANIMAL_ID, ANIMAL_OUTS.NAME
+FROM ANIMAL_OUTS LEFT OUTER JOIN ANIMAL_INS
+ON ANIMAL_OUTS.ANIMAL_ID = ANIMAL_INS.ANIMAL_ID
+WHERE ANIMAL_INS.ANIMAL_ID IS NULL
+ORDER BY ANIMAL_OUTS.ANIMAL_I
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
